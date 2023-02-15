@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import 'internet.dart';
+
 class Homescreen extends StatefulWidget {
   const Homescreen({Key? key}) : super(key: key);
 
@@ -69,13 +71,20 @@ class _HomescreenState extends State<Homescreen> {
               ),
             );
           }),
-      /*floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () async {
 
+          hasInternet = await InternetConnectionChecker().hasConnection;
+          result = await Connectivity().checkConnectivity();
+          final color = hasInternet ? Colors.green : Colors.red;
+          final text = hasInternet ? "Internet" : "No Internet";
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(text,style: TextStyle(color: color),),
+          ));
           fetchusers();
         },
         child: Icon(Icons.refresh),
-      ),*/
+      ),
     );
   }
 
